@@ -1,0 +1,7 @@
+.env
+STOP
+bot.log
+trades.csv
+backtest_trades.csv
+__pycache__/
+.pytest_cache/

@@ -1,0 +1,32 @@
+# Restart required for: mode, broker, data_feed. Everything else is re-read every cycle.
+
+mode: paper                  # paper | live  (live asks you to type a confirmation at startup)
+broker: alpaca
+data_feed: iex               # iex (free) | sip (paid subscription)
+
+watchlist: [SPY, QQQ, AAPL, MSFT, NVDA, TSLA]
+
+strategy: vwap_ma_cross
+strategy_params:
+  fast_ma: 9
+  slow_ma: 21
+
+allow_short: true            # uses real short-sell orders; bot refuses to start if the account can't short
+
+stop_loss_pct: 1.0           # % from entry, placed at the broker as part of a bracket order
+take_profit_pct: 2.0
+
+capital_per_trade: 1000      # dollars per trade (whole shares only)
+max_open_positions: 3
+max_total_capital_at_risk: 3000   # hard cap on total dollars deployed across open positions
+daily_loss_limit: 100        # dollars; hit it and everything is closed, no more trading today
+
+day_trade_limit_enabled: true     # set false if you're not subject to the PDT rule
+max_day_trades: 3
+
+skip_open_minutes: 5         # no new trades in the first N minutes after 9:30 ET
+flatten_time: "15:50"        # ET: cancel orders and close everything (keep the quotes)
+poll_seconds: 20
+max_bar_age_seconds: 180     # data older than this is treated as a feed failure
+
+backtest_slippage_pct: 0.01  # % worse fill on entries/stops/EOD exits in backtests
